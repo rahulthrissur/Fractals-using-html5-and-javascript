@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<canvas id="canvas" width="700" height="700"></canvas>
+ 
+<script>
+
+var b_canvas = document.getElementById("canvas");
+var b_context = b_canvas.getContext("2d");
+
+
+function draw(b_context, order, p1, p2, p3){
+    if(order > 0){
+        if(order == 5)
+            b_context.fillStyle = "silver";
+        else if (order==4)
+            b_context.fillStyle = "blue";
+else if (order==3)
+            b_context.fillStyle = "red";
+else if (order==2)
+            b_context.fillStyle = "green";
+else
+b_context.fillStyle = "yellow"
+             
+  
+
+b_context.beginPath();
+     
+        b_context.moveTo(p1[0], p1[1]);
+        b_context.lineTo(p2[0], p2[1]);
+        b_context.lineTo(p3[0], p3[1]);
+         
+        b_context.closePath();
+        b_context.fill();
+
+
+        var p1_p2 = new Array( (p1[0] + p2[0]) / 2,
+                             (p1[1] + p2[1]) / 2 );
+        var p2_p3 = new Array( (p2[0] + p3[0]) / 2,
+                             (p2[1] + p3[1]) / 2 );
+        var p3_p1 = new Array( (p3[0] + p1[0]) / 2,
+                             (p3[1] + p1[1]) / 2 );
+         
+
+
+        draw(b_context, order - 1, p1, p1_p2, p3_p1);
+        draw(b_context, order - 1, p2, p2_p3, p1_p2);
+        draw(b_context, order - 1, p3, p3_p1, p2_p3);
+
+    }
+}
+
+function init(order){
+   draw(b_context, order, new Array(500,125), new Array(375,250), new Array(625,250));
+  
+}
+init(5);
+</script>
+</html>

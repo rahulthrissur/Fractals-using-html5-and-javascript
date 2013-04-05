@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<canvas id="canvas" width = "800" height = "800"></canvas>
+
+<script>
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext('2d');
+
+var range =0;
+function koch_snowflake()
+{
+angle=45;
+x=200;
+y=200;
+context.beginPath();
+context.moveTo(200,200);
+for(i=0;i<3;i++)
+{
+snow_flake(range, 250);
+angle = angle + 120;
+}
+context.closePath();
+context.fillStyle='green';
+context.fill();
+range++;
+}
+
+function snow_flake(range, side)
+{
+if(range < 1)
+{
+draw_line(side);
+}
+else
+{
+snow_flake(range - 1, side / 3);
+angle= angle - 60;
+snow_flake(range - 1, side / 3);
+angle = angle + 120;
+snow_flake(range - 1, side / 3);
+angle = angle - 60;
+snow_flake(range - 1, side / 3);
+}
+}
+function draw_line(side)
+{
+x = x + side * Math.sin(angle * Math.PI/180);
+y = y + side * Math.cos(angle * Math.PI/180);
+context.lineTo(x, y);
+}
+
+setInterval(koch_snowflake, 2000);
+</script>
+</html>
